@@ -1,0 +1,93 @@
+# Karol Wojcik 
+# UWB 
+# 80292
+# lab 8 
+# programowanie w srodowiskach sieciowych 
+
+
+# Konfiguracja Serwera Socket z Apache2 i CGI
+
+## Wymagania
+- Apache2
+- Java Development Kit (JDK)
+- Python3
+- CGI 
+
+## Konfiguracja Apache2
+
+### 1. Włączenie CGI
+
+sudo a2enmod cgi
+
+### 2. Konfiguracja pliku `apache2.conf`
+Upewnij się, że masz następujące wpisy:
+<Directory /var/www/>
+    Options Indexes FollowSymLinks AllowOverride None Require all granted
+</Directory>
+
+<Directory /var/www/cgi-bin>
+    Options +ExecCGI
+    AllowOverride None
+    Require all granted
+    AddHandler cgi-script .cgi .py
+</Directory>
+
+<Directory "/usr/lib/cgi-bin">
+    AllowOverride None
+    Options +ExecCGI
+    Require all granted
+</Directory>
+
+ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+```
+
+### 3. Konfiguracja pliku `000-default.conf`
+Upewnij się, że katalogi są dostępne:
+<VirtualHost *:80>
+    DocumentRoot /var/www/html
+    
+    <Directory /var/www/html>
+        Options Indexes FollowSymLinks
+        AllowOverride None
+        Require all granted
+    </Directory>
+</VirtualHost>
+
+
+## Rozmieszczenie plików
+- Strona HTML: `/var/www/html/socket_client.html`
+- Skrypt CGI: `/usr/lib/cgi-bin/socket_client.py`
+- Pliki Java: dowolny katalog projektu
+
+## Uprawnienia
+
+# Nadaj uprawnienia wykonania skryptowi
+
+
+sudo chmod +x /usr/lib/cgi-bin/socket_client.py
+sudo chown www-data:www-data /usr/lib/cgi-bin/socket_client.py
+
+
+# Sprawdź grupę i użytkownika Apache
+sudo ps aux | grep apache
+
+## Uruchomienie
+
+# Restart Apache
+sudo systemctl restart apache2
+
+# Sprawdź status
+sudo systemctl status apache2
+```
+
+## Dostep
+- Strona: `http://localhost/socket_client.html`
+- Port serweraSocket: 6196
+
+## kompilacja  serwera java 
+
+javac MultipleSocketServer.java
+
+## uruchomienie serwera 
+java MultipleSocketServer.java
+

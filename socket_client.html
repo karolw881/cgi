@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket Client Form</title>
+</head>
+<body>
+    <h1>Send Message to Server</h1>
+    <form action="/cgi-bin/socket_client.py" method="post">
+        <label for="user_id">User ID:</label><br>
+        <input type="text" id="user_id" name="user_id" placeholder="Enter your User ID" required><br><br>
+        
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="5" cols="30" placeholder="Enter your message here" required></textarea><br><br>
+        
+        <button type="submit">Send</button>
+    </form>
+</body>
+</html>
+
